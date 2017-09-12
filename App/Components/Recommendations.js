@@ -1,8 +1,7 @@
 'use strict';
 import React from 'react';
 import { Text, ListView, } from 'react-native';
-import UserRepository from '../Business/Entities/Repository';
-import { User }from '../Business/Entities/Entities';
+import UserRepository from '../Business/Repository';
 
 export default class Recommendation extends React.Component {
     constructor(props) {
@@ -23,17 +22,12 @@ export default class Recommendation extends React.Component {
     }
 
     async getRecommendations() {
-        let user = new User();
+        let user = new Object();
         user.creditCards = ['cc1', 'cc2'];
         user.shoppingCategories = ['category1', 'category2'];
 
         await UserRepository.saveUserAsync(user);
         let fetchedUser = await UserRepository.getUserAsync();
-
-        console.log(fetchedUser);
-        console.log(fetchedUser.shoppingCategories);
-
-        return ['1','2'];
     }
 
     render() {

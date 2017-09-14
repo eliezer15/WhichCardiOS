@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, TextInput, TouchableHighlight, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import defaultStyle from '../Resources/default-styles';
+import defaultStyle from '../../Resources/default-styles';
 
 export default class NameTextbox extends React.Component {
     constructor(props) {

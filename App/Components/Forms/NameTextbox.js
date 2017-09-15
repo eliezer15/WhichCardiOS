@@ -2,7 +2,6 @@
 import React from 'react';
 import { View, TextInput, TouchableHighlight, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import defaultStyle from '../../Resources/default-styles';
 
 export default class NameTextbox extends React.Component {
     constructor(props) {
@@ -11,7 +10,7 @@ export default class NameTextbox extends React.Component {
 
     render() {
         return(
-            <View style={[defaultStyle.container, styles.view]}>
+            <View style={tyles.view}>
                 <TextInput 
                     style={styles.textbox}
                     placeholder='First Name'
@@ -26,6 +25,7 @@ const styles = StyleSheet.create({
         fontSize: 50
     },
     view: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     }

@@ -6,18 +6,10 @@ import CategoriesForm from './App/Components/Forms/CategoriesForm';
 export default class App extends Component {
     render() {
         let categories = [
-            { name: 'Gas' },
-            { name: 'Restaurants' },
-            { name: 'Groceries' },
-            { name: 'Travel'},
-            { name: 'Gas' },
-            { name: 'Restaurants' },
-            { name: 'Groceries' },
-            { name: 'Travel'},
-            { name: 'Gas' },
-            { name: 'Restaurants' },
-            { name: 'Groceries' },
-            { name: 'Travel'}
+            'Gas',
+            'Restaurants',
+            'Travel',
+            'Wholesale'
         ];
         return (
             <CategoriesForm categories={categories} />

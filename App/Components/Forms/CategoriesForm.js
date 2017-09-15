@@ -1,8 +1,7 @@
 'use strict';
 import React from 'react';
-import {  KeyboardAvoidingView, View, StyleSheet, TextInput, Text, ListView, Dimensions, TouchableHighlight } from 'react-native';
-import defaultStyles from '../../Resources/default-styles'
-import { Ionicons } from '@expo/vector-icons';
+import { View, StyleSheet, Text, ListView, Dimensions } from 'react-native';
+import CategoriesTextbox from './CategoriesTextbox';
 
 export default class CategoriesForm extends React.Component {
     constructor(props) {
@@ -15,43 +14,45 @@ export default class CategoriesForm extends React.Component {
         this.state = {
             categories: this.props.categories,
             dataSource: ds.cloneWithRows([]),
-            addNewCategory: false
         };
+    }
+
+    saveCategory(category) {
+        let categories = this.state.categories;
+        categories.push(category);
+        this.setState({
+            categories: categories,
+            dataSource: this.state.dataSource.cloneWithRows(categories)
+        });
+
+        console.log(categories);
     }
 
     componentDidMount() {
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(this.state.categories),
-            addNewCategory: false
         });
     }
 
     renderRow(category) {
         return (
             <View style={[styles.rowData]}>
-                <Text>{category.name}</Text>
+                <Text style={styles.category}>{category}</Text>
             </View>
         );
     }
 
     render() {
         return(
-            <KeyboardAvoidingView 
-                style={[defaultStyles.container, styles.wrapper]}
-                behavior='padding'>
-
+            <View style={styles.wrapper}>
                 <View style={styles.listViewWrapper}>
                     <ListView 
                         enableEmptySections={true}
                         dataSource={this.state.dataSource}
                         renderRow={(rowdata) => this.renderRow(rowdata)} />
                 </View>
-                <View style={[defaultStyles.container, styles.footer]}>
-                    <TextInput placeholder='Add New'/>
-                    <Ionicons name='md-add-circle' size={45} color='#2196f3' />
-                </View>
-
-            </KeyboardAvoidingView>
+                <CategoriesTextbox saveCategory={(category) => this.saveCategory(category)} />
+            </View>
         );
     }
 }
@@ -67,23 +68,14 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1
     },
     wrapper: {
+        flex: 1,
         flexDirection: 'column'
     },
     listViewWrapper: {
         paddingTop:20,
-        flex: 7
+        flex: 8
     },
-    footer: {
-        flex:1,
-        borderTopWidth: 1,
-        borderColor: '#d7d7d7',    
-        shadowColor: '#000000',
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowRadius: 3,
-        shadowOpacity: 1.0,
-        flexDirection:'row'
+    category: {
+        fontSize:18
     }
 });

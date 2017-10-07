@@ -12,22 +12,9 @@ export default class Recommendation extends React.Component {
         });
 
         this.state = {
-            dataSource: ds.cloneWithRows([]),
+            dataSource: ds.cloneWithRows(this.props.recommendations),
             showProgress: true
         };
-    }
-
-    async componentDidMount() {
-        await this.getRecommendations()
-    }
-
-    async getRecommendations() {
-        let user = new Object();
-        user.creditCards = ['cc1', 'cc2'];
-        user.shoppingCategories = ['category1', 'category2'];
-
-        await UserRepository.saveUserAsync(user);
-        let fetchedUser = await UserRepository.getUserAsync();
     }
 
     render() {

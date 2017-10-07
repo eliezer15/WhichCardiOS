@@ -3,6 +3,10 @@ const RewardsPerCategory = 2;
 
 export default class RecommendationService {
 
+    getRecommendations(user) {
+        return user.shoppingCategories.map(category => this._getRecommendation(user.creditCards, category));
+    }
+    
     _getEffectivePercentageReward(reward) {
         if (!reward) {
             return 0;
@@ -72,9 +76,5 @@ export default class RecommendationService {
 
     _getApplicableRewards(rewards, category) {
         return rewards.filter(reward => reward.categories.some(c => c === category));
-    }
-
-    getRecommendations(user) {
-        return user.shoppingCategories.map(category => this._getRecommendation(user.creditCards, category));
     }
 }

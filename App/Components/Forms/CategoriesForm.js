@@ -1,43 +1,28 @@
 'use strict';
 import React from 'react';
-import { View, StyleSheet, Text, ListView, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, FlatList, Dimensions } from 'react-native';
 import CategoriesTextbox from './CategoriesTextbox';
 
 export default class CategoriesForm extends React.Component {
     constructor(props) {
         super(props);
 
-        var ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 != r2
-        });
-
         this.state = {
-            categories: this.props.categories,
-            dataSource: ds.cloneWithRows([]),
+            categories: this.props.categories
         };
     }
 
     saveCategory(category) {
         let categories = this.state.categories;
-        categories.push(category);
-        this.setState({
-            categories: categories,
-            dataSource: this.state.dataSource.cloneWithRows(categories)
-        });
-
-        console.log(categories);
+        categories.push({name: category});
+        this.setState({ categories: categories });
     }
 
-    componentDidMount() {
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(this.state.categories),
-        });
-    }
-
-    renderRow(category) {
+    renderItem(item) {
+        console.log(item);
         return (
             <View style={[styles.rowData]}>
-                <Text style={styles.category}>{category}</Text>
+                <Text style={styles.category}>{item.name}</Text>
             </View>
         );
     }
@@ -46,10 +31,10 @@ export default class CategoriesForm extends React.Component {
         return(
             <View style={styles.wrapper}>
                 <View style={styles.listViewWrapper}>
-                    <ListView 
-                        enableEmptySections={true}
-                        dataSource={this.state.dataSource}
-                        renderRow={(rowdata) => this.renderRow(rowdata)} />
+                    <FlatList
+                        data={this.state.categories}
+                        renderItem={({item}) => this.renderItem(item)}
+                        keyExtractor={category => category.name} />
                 </View>
                 <CategoriesTextbox saveCategory={(category) => this.saveCategory(category)} />
             </View>

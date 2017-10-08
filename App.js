@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import RegistrationContainer from './App/Components/Registration/RegistrationContainer';
-import CategoriesForm from './App/Components/Forms/CategoriesForm';
+import Recommendations from './App/Components/Recommendations';
 
 export default class App extends Component {
     render() {
-        let categories = [
-            { name: 'Gas'},
-            { name: 'Restaurants'},
-            { name: 'Travel'},
-            { name: 'Wholesale'}
+        let recommendations = [
+            { category: 'Gas', creditCards: [{name:'Venture'},{name:'Amex'},{name:'Fargo'}]},
+            { category: 'Restaurants', creditCards: [{name:'Amex'}]},
+            { category: 'Travel', creditCards: [{name:'Discover'}]},
+            { category: 'Wholesale', creditCards: [{name:'Wells Fargo'}]}
         ];
         return (
-            <CategoriesForm categories={categories} />
+            <Recommendations recommendations={recommendations} />
         );
     }
 }
